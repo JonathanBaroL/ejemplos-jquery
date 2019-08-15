@@ -1,0 +1,24 @@
+<html>
+
+
+  <body>
+    <div>Div 1</div>
+    <div class="highlight">Div 2</div>
+    <div id="third">Div 3</div>
+    <div class="highlight">Div 4</div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+
+    <script>
+      $('div').css('background', 'purple')
+      $('.highlight').css('width', '200')
+      $('#third').css('border', 'solid orange 10px');
+      $('div:first-of-type').css('color', 'pink');
+      $('div:nth-of-type(3)').css('color', 'red');
+    </script>
+
+  </body>
+</html>
