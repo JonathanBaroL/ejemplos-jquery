@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Homework</title>
+    <style>
+        
+        body {
+            background: #FAFAFA;
+            font-family: arial, helvetica, sans-serif;
+            font-size: 16px;
+        }
+        
+        .wrap {
+            margin: auto;
+            max-width: 800px;
+            width: 90%;
+        }
+        
+        .principal {
+            background: blue;
+            color: #fff;
+            padding: 50px 0;
+            width: 60%;
+        }
+        
+        .principal .formulario {
+            color: #212121;
+            text-align: center;
+        }
+        
+        .principal .formulario input[type=text] {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 60%;
+        }
+        
+        .principal .formulario .boton {
+            background: none;
+            color: #fff;
+            display: inline-block;
+            font-size: 60px;
+        }
+        
+        .principal .formulario .boton:hover {
+            border: 1px solid #fff;
+        }
+        
+        /* - Tareas - */
+        .tareas  {
+            list-style: none;
+            width: 60%;
+        }
+        
+        .tareas .lista li {
+            border-bottom: 1px solid #B6B6B6;
+        }
+        
+        .tareas .lista li{
+            color: #212121;
+            display: block;
+            padding: 20px 0;
+            text-decoration: none;
+        }
+        
+        .tareas .lista li a:hover {
+            text-decoration: line-through;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="principal">
+        <div class="wrap">
+            <form class="formulario" action="">
+                <h1>To-do list</h1>
+                <input type="text" placeholder="Agrega tu tarea" id="add">
+                <input type="button" value="+" id="boton">
+            </form>
+        </div>
+    </div>
+         
+    <div class="tareas">
+        <div class="wrap">
+            <ul class="lista" id="lista">
+                <li>Buy robes</li>
+                <li>Fight malfoy</li>
+                <li>Buy new wand</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>
+
+    <script>
+        $('#add').on('keypress', function (event) {
+            if (event.which == 13) 
+            {
+                $('.lista').append('<li>' + $(this).val() + '</li>');
+                console.log('Adding ' + $(this).val());
+            }
+        });
+
+        $('ul').on('click', 'li', function()
+        {
+            $(this).css('text-decoration', 'line-through'); 
+            $(this).css('color', 'gray'); 
+        });
+
+        $('#boton').on('click', function()
+        {
+            $('#add').toggle(500, function()
+            {});
+        });
+
+        $('ul').on('mouseenter', 'li', function()
+        {
+            var button = '<input type="button" value="Delate" id="delate" />';
+            $(this).prepend(button);
+            $('#delate').css('background-color', 'red');
+
+        });
+
+        $('ul').on('mouseout', 'li', function()
+        {
+            $(this).css('background-color', 'white');
+            $('#delate').remove();
+        });
+
+        
+
+    </script> 
+
+</body>
+</html>

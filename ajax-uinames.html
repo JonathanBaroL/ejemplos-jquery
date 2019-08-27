@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Ajax UInames</title>
+</head>
+<body>
+    <h1>UInames Example</h1>
+    
+    <h2>users</h2>
+
+    <div>
+        <label>Male</label>
+        <input type="radio" name="gender" id="male">
+        <label>Female</label>
+        <input type="radio" name="gender" id="female">
+        <label>Random</label>
+        <input type="radio" name="gender" id="random">
+    </div>
+
+    <div>
+        <label for="region">Region</label>
+        <select name="region" id="region">
+            <option>None</option>
+            <option>France</option>
+            <option>Germany</option>
+            <option>India</option>
+            <option>Russia</option>
+            <option>Mexico</option>
+            <option>Random</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Extra</label>
+        <input type="checkbox" name="" id="extra">
+    </div>
+
+    <input type="number" placeholder="Cuantos usuarios necesitas" name="" id="nUsuarios">
+
+    <ul id=users>
+
+        </ul>
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+
+
+    <script>
+
+
+    var gender = "";
+    $('input[type=radio]').on('click', function(){
+        gender = $(this).attr('id');
+    });
+
+    $('#nUsuarios').on('keypress', function (event) {
+
+        // Mostrar la edad, correo y su foto de perfil
+            if (event.which == 13) 
+            {
+                $('#users').html('');
+                $('.errors').html('');
+
+                var amount = $('#nUsuarios').val();
+                $('#nUsuarios').val('');
+
+                var region = $('#region').val();
+
+                var urlString = "https://uinames.com/api/?amount=" + amount + "&gender=" + gender + "&region=" + region;
+                var extra = $('#extra').prop('checked');
+                if (extra)
+                {
+                    urlString += "&ext";
+                }
+                jQuery.ajax({
+                    method: "GET",
+                    url: urlString,
+                    success: function(data) {
+
+                        if(amount == "1")
+                        {
+                            user = data;
+                            $('#users').append('<li>' + user.name + ' ' + user.surname + '<img src="'+ data.photo + '">' + '</li>');
+                        }
+                        else
+                        {
+                            var i, user;
+                            for(i = 0; i < data.length; i++)
+                            {
+                                user = data[i];
+                                if (extra)
+                                {
+                                    $('#users').append('<li>' + user.name + ' ' + user.surname + user.url  +'<img src="'+ user.photo + '">' + '</li>');
+                                }
+                                else
+                                {
+                                    $('#users').append('<li>' + user.name + ' ' + user.surname + '</li>');
+                                }
+                                
+                            }
+                        }
+                    },
+                    error: function(data)
+                    {
+                        console.log('There something wrong');
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    </script>
+
+
+</body>
+</html>
